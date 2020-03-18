@@ -13,4 +13,4 @@
         :output-dir "public/app/js"
         :devtools {:hud #{:errors :warnings :progress}
                    :repl-pprint true}
-        :modules {:main {:init-fn dev.chrisreyes.app/init}}}}}
+        :modules {:main {:init-fn org.chrisreyes.app/init}}}}}
