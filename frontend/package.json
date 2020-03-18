@@ -1,0 +1,19 @@
+{
+  "author": "Christopher R. Reyes",
+  "bugs": {
+    "url": "https://github.com/creyes17/org.chrisreyes/issues"
+  },
+  "description": "Code for the ChrisReyes.org website",
+  "homepage": "https://github.com/creyes17/org.chrisreyes#readme",
+  "license": "GPL-3.0",
+  "main": "public/app/js/main.js",
+  "name": "org.chrisreyes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/creyes17/org.chrisreyes.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}
