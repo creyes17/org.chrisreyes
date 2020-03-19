@@ -14,15 +14,11 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(ns org.chrisreyes.style.global
+(ns org.chrisreyes.style.theme
   (:require
-    [org.chrisreyes.style.theme :as theme]
     ["react-router-dom" :as router]
     ["styletron-react" :refer (styled)]))
 
-(def global-style
-  [:style (str "body {background-color: #"
-               (:backgroundColor theme/default-theme)
-               "; color: #"
-               (:color theme/default-theme)
-               ";}")])
+(def default-theme
+  {:backgroundColor "3A4353"
+   :color "BDC3C7"})
