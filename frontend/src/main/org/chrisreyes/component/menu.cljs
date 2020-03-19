@@ -14,31 +14,27 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(ns org.chrisreyes.app
+(ns org.chrisreyes.component.menu
   (:require
-    [org.chrisreyes.component.menu :refer (Menu)]
-    [org.chrisreyes.style.global :refer (global-style)]
-    [reagent.dom]
-    [reagent.core]
     ["react-router-dom" :as router]
-    ["styletron-engine-atomic" :rename {Client StyletronClient}]
-    ["styletron-react" :refer (styled) :rename {Provider StyletronProvider}]))
+    ["styletron-react" :refer (styled)]))
 
-(def engine
-  (new StyletronClient))
+(def MenuItem
+  (styled router/Link
+          (fn [props]
+            #js{:backgroundColor "purple"
+                :color "white"})))
 
-(defn App []
-  [:<>
-   global-style
-   [:> StyletronProvider
-    {:value engine}
-    [:> router/BrowserRouter
-     (Menu)
-     [:main>div "Hello World, I am content"]]]])
- 
-(defn ^:dev/after-load start []
-  (reagent.dom/render App
-                      (.getElementById js/document "root")))
+(defn Menu []
+   [:nav
+    [:ul
+     [:li 
+      [:> MenuItem {:to "/about"} "About"]]
+     [:li 
+      [:> MenuItem {:to "support"} "Support"]]]])
 
-(defn init []
-  (start))
+(def StyledMenu
+  (styled (reagent.core/reactify-component Menu)
+          (fn [props]
+            #js{:backgroundColor "purple"
+                :color "white"})))
