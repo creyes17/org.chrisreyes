@@ -18,24 +18,47 @@
   (:require
     [org.chrisreyes.component.menu :refer (Menu)]
     [org.chrisreyes.style.global :refer (global-style)]
+    [org.chrisreyes.style.theme :as theme]
     [reagent.dom]
     [reagent.core]
     ["react-router-dom" :as router]
     ["styletron-engine-atomic" :rename {Client StyletronClient}]
-    ["styletron-react" :refer (styled) :rename {Provider StyletronProvider}]))
+    ["styletron-react" :rename {Provider StyletronProvider}]))
 
 (def engine
   (new StyletronClient))
 
-(defn App []
+(def TestLink
+  (theme/styled
+    "a"
+    (fn [clj-props current-theme]
+      #js{:backgroundColor (:$background
+                             clj-props
+                             (:primary
+                               (:color current-theme {})
+                               "black"))
+          :color (:$color
+                   clj-props
+                   (:primaryContrast
+                     (:color current-theme {})
+                     "purple"))
+          :display "block"
+          :padding "1vh"
+          :textAlign "center"})))
+
+(def App
   [:<>
    global-style
-   [:> StyletronProvider
-    {:value engine}
-    [:> router/BrowserRouter
-     (Menu)
-     [:main>div "Hello World, I am content"]]]])
- 
+   [theme/ThemeProvider
+    [:> StyletronProvider
+     {:value engine}
+     [TestLink {"$background" "yellow"
+                "$color" "black"}
+      "Black and Yellow"]
+     [TestLink "Default Styling"]
+     [:> router/BrowserRouter
+      [Menu]]]]])
+
 (defn ^:dev/after-load start []
   (reagent.dom/render App
                       (.getElementById js/document "root")))

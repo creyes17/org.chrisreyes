@@ -17,12 +17,11 @@
 (ns org.chrisreyes.style.global
   (:require
     [org.chrisreyes.style.theme :as theme]
-    ["react-router-dom" :as router]
-    ["styletron-react" :refer (styled)]))
+    ["react-router-dom" :as router]))
 
 (def global-style
-  [:style (str "body {background-color: #"
-               (:backgroundColor theme/default-theme)
-               "; color: #"
-               (:color theme/default-theme)
+  [:style (str "body {background-color: "
+               (:background (:color theme/default-theme))
+               "; color: "
+               (:background-contrast (:color theme/default-theme))
                ";}")])

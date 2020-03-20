@@ -24,3 +24,5 @@ yarn-error.log*
 
 frontend/public/app/js
 .shadow-cljs
+
+tags

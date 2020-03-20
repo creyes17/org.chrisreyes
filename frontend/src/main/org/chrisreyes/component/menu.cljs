@@ -16,25 +16,18 @@
 
 (ns org.chrisreyes.component.menu
   (:require
-    ["react-router-dom" :as router]
-    ["styletron-react" :refer (styled)]))
+    ["react-router-dom" :as router]))
 
-(def MenuItem
-  (styled router/Link
-          (fn [props]
-            #js{:backgroundColor "purple"
-                :color "white"})))
+; (def MenuItem
+  ; (router/Link
+          ; (fn [props]
+            ; #js{:backgroundColor "purple"
+                ; :color "white"})))
 
 (defn Menu []
    [:nav
     [:ul
      [:li 
-      [:> MenuItem {:to "/about"} "About"]]
+      [:> router/Link {:to "/about"} "About"]]
      [:li 
-      [:> MenuItem {:to "support"} "Support"]]]])
-
-(def StyledMenu
-  (styled (reagent.core/reactify-component Menu)
-          (fn [props]
-            #js{:backgroundColor "purple"
-                :color "white"})))
+      [:> router/Link {:to "support"} "Support"]]]])

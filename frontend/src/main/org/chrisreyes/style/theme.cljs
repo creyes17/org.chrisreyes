@@ -16,9 +16,69 @@
 
 (ns org.chrisreyes.style.theme
   (:require
+    [reagent.core]
+    ["react" :as react]
     ["react-router-dom" :as router]
-    ["styletron-react" :refer (styled)]))
+    ["styletron-react" :rename {styled styletron-styled}]
+    ["styletron-standard" :refer (driver getInitialStyle)]))
 
+; Themes
 (def default-theme
-  {:backgroundColor "3A4353"
-   :color "BDC3C7"})
+  {:color {:background "#3A4353"
+           :backgroundContrast "#BDC3C7"
+           :primary "#7DF37D"
+           :primaryContrast "#1D0029"
+           :secondary "#DDA0DD"
+           :secondaryContrast "#1D1905"
+           :tertiary "#FFA07A"
+           :tertiaryContrast "#1C2833"}})
+
+; React Context to pass the theme down
+(defonce theme-context (react/createContext))
+(set! (.-displayName theme-context) "StyletronTheme")
+
+(def Provider (.-Provider theme-context))
+(def Consumer (.-Consumer theme-context))
+
+(defn ThemeProvider
+  "Creates a React Provider to provide the color theme"
+  [& children]
+  (into
+    [:> Provider
+     {:value default-theme}]
+    children))
+
+(defn with-theme
+  "Returns a Form-1 Reagent Component for adding the $theme to
+  elements via props. The first arg (wrapped-component) should
+  be a keyword or a Form-1, Form-2, or Form-3 Reagent Component"
+  [wrapped-component]
+  (fn [& children]
+    (let [has-props? (and (not (empty? children))
+                          (map? (first children)))
+          props (if has-props?
+                  (first children)
+                  {})
+          actual-children (if has-props?
+                            (rest children)
+                            children)]
+      [:> Consumer
+       {}
+       (fn [theme]
+         (reagent.core/as-element
+           (into
+             [wrapped-component
+              (conj props {"$theme" theme})]
+             actual-children)))])))
+
+(defn styled
+  "Returns a styled Reagent component for use in bare hiccup forms."
+  [element style-fn]
+  (with-theme
+    (reagent.core/adapt-react-class
+      (styletron-styled
+        element
+        (fn [props]
+          (let [clj-props (js->clj props :keywordize-keys true)
+                current-theme (:$theme clj-props default-theme)]
+            (style-fn clj-props current-theme)))))))
