@@ -68,7 +68,7 @@
          (reagent.core/as-element
            (into
              [wrapped-component
-              (conj props {"$theme" theme})]
+              (conj props {:$theme theme})]
              actual-children)))])))
 
 (defn styled

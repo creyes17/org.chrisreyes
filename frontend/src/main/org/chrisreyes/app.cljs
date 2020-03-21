@@ -48,10 +48,10 @@
 
 (def App
   [:<>
-   global-style
    [theme/ThemeProvider
     [:> StyletronProvider
      {:value engine}
+     [global-style]
      [TestLink {"$background" "yellow"
                 "$color" "black"}
       "Black and Yellow"]

@@ -19,9 +19,18 @@
     [org.chrisreyes.style.theme :as theme]
     ["react-router-dom" :as router]))
 
-(def global-style
+(defn global-style-inner [props]
+  (let [colors (:color
+                 (:$theme
+                   (js->clj
+                     props
+                     :keywordize-keys
+                     true)))]
   [:style (str "body {background-color: "
-               (:background (:color theme/default-theme))
+               (:background colors)
                "; color: "
-               (:background-contrast (:color theme/default-theme))
-               ";}")])
+               (:background-contrast colors)
+               ";}")]))
+
+(def global-style
+  (theme/with-theme global-style-inner))
