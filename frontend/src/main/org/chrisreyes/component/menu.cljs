@@ -28,6 +28,6 @@
    [:nav
     [:ul
      [:li 
-      [:> router/Link {:to "/about"} "About"]]
+      [:> router/Link {:to "/"} "About"]]
      [:li 
-      [:> router/Link {:to "support"} "Support"]]]])
+      [:> router/Link {:to "/support/"} "Support"]]]])

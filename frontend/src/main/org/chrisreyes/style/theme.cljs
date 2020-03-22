@@ -24,14 +24,18 @@
 
 ; Themes
 (def default-theme
-  {:color {:background "#3A4353"
-           :backgroundContrast "#BDC3C7"
-           :primary "#7DF37D"
-           :primaryContrast "#1D0029"
-           :secondary "#DDA0DD"
-           :secondaryContrast "#1D1905"
-           :tertiary "#FFA07A"
-           :tertiaryContrast "#1C2833"}})
+  {:color {:background {:opaque "rgb(58,67,83)"
+                        :contrast "#BDC3C7"
+                        :transparent "rgba(58,67,83,0.65)"}
+           :primary {:opaque "rgba(125,243,125)"
+                     :contrast "#1D0029"
+                     :transparent "rgba(125,243,125,0.65)"}
+           :secondary {:opaque "rgb(221,160,221)"
+                       :contrast "#1D1905"
+                       :transparent "rgba(221,160,221,0.65)"}
+           :tertiary {:opaque "rgb(255,160,122)"
+                      :contrast "#1C2833"
+                      :transparent "rgba(255,160,122,0.65)"}}})
 
 ; React Context to pass the theme down
 (defonce theme-context (react/createContext))

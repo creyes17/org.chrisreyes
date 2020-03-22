@@ -17,6 +17,7 @@
 (ns org.chrisreyes.app
   (:require
     [org.chrisreyes.component.menu :refer (Menu)]
+    [org.chrisreyes.content.about :refer (about-section)]
     [org.chrisreyes.style.global :refer (global-style)]
     [org.chrisreyes.style.theme :as theme]
     [reagent.dom]
@@ -28,23 +29,40 @@
 (def engine
   (new StyletronClient))
 
+;TODO: Rename all these components to be more clojure-tastic.
+
 (def TestLink
   (theme/styled
     "a"
     (fn [clj-props current-theme]
       #js{:backgroundColor (:$background
                              clj-props
-                             (:primary
-                               (:color current-theme {})
+                             (:opaque
+                               (:primary
+                                 (:color current-theme {})
+                                 {})
                                "black"))
           :color (:$color
                    clj-props
-                   (:primaryContrast
-                     (:color current-theme {})
+                   (:contrast
+                     (:primary
+                       (:color current-theme {}) {})
                      "purple"))
           :display "block"
           :padding "1vh"
           :textAlign "center"})))
+
+;TODO: skip-to-content link
+;TODO: Load routes from data (AWS or local file or something)
+
+(def main
+  (theme/styled
+    "main"
+    (fn [clj-props current-theme]
+      #js{:display "block"
+          :marginLeft "auto"
+          :marginRight "auto"
+          :width "75%"})))
 
 (def App
   [:<>
@@ -52,12 +70,16 @@
     [:> StyletronProvider
      {:value engine}
      [global-style]
-     [TestLink {"$background" "yellow"
-                "$color" "black"}
-      "Black and Yellow"]
-     [TestLink "Default Styling"]
      [:> router/BrowserRouter
-      [Menu]]]]])
+      [Menu]
+      [main
+       [:> router/Route {:path "/"
+                         :exact true
+                         :component (reagent.core/reactify-component
+                                      about-section)}]
+       [:> router/Route {:path "/support/"
+                         :component (reagent.core/reactify-component
+                                      (fn [] [:div "TODO: Support Section"]))}]]]]]])
 
 (defn ^:dev/after-load start []
   (reagent.dom/render App
