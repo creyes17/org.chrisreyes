@@ -44,27 +44,40 @@
   (theme/styled
     "div"
     (fn [clj-props current-theme]
-      #js{:alignItems "stretch"
-          :display "flex"
-          :flexWrap "wrap"
-          :justifyContent "space-between"
-          :width "100%"})))
+      (clj->js
+        ; Make sure the media queries don't mess up vertical stretching
+        {(:tiny theme/screen-size) #js{:alignItems "stretch"}
+         (:small theme/screen-size) #js{:alignItems "stretch"}
+         (:medium theme/screen-size) #js{:alignItems "stretch"}
+         (:large theme/screen-size) #js{:alignItems "stretch"}
+         :display "flex"
+         :flexWrap "wrap"
+         :justifyContent "space-between"
+         :width "100%"}))))
 
 (def organization-container
   (theme/styled
     "article"
     (fn [clj-props current-theme]
-      #js{:backgroundColor (:opaque
-                             (:tertiary
-                               (:color current-theme)))
-          :color (:contrast
-                   (:tertiary
-                     (:color current-theme)))
-          :flex "0 1 32%"
-          :fontSize (:subtitle (:size (:font current-theme)))
-          :marginTop "1vh"
-          :marginBottom "1vh"
-          :textAlign "center"})))
+      (clj->js
+        ; By default, on mobile there should be only one element per row
+        {(:tiny theme/screen-size) #js{:flex "0 1 100%"}
+         ; Who only two cards per row on small screens
+         (:small theme/screen-size) #js{:flex "0 1 49%"}
+         ; Three cards per row for mid-size screens
+         (:medium theme/screen-size) #js{:flex "0 1 32%"}
+         ; Four cards per row on larger screens
+         (:large theme/screen-size) #js{:flex "0 1 24%"}
+         :backgroundColor (:opaque
+                            (:tertiary
+                              (:color current-theme)))
+         :color (:contrast
+                  (:tertiary
+                    (:color current-theme)))
+         :fontSize (:subtitle (:size (:font current-theme)))
+         :marginTop "1vh"
+         :marginBottom "1vh"
+         :textAlign "center"}))))
 
 (def organization-image
   (theme/styled
@@ -98,17 +111,14 @@
    [organization-link-wrapper {:href url :target "_blank"}
     [:div title]
     [organization-image {:$background background-color
+                         :alt (str "Logo for " title)
                          :src image-url}]]])
 
 (def disclaimer-ui
   (theme/styled
     "span"
     (fn [clj-props current-theme]
-      (do
-        (prn (:font current-theme))
-        (prn (:size (:font current-theme)))
-        (prn (:tiny (:size (:font current-theme))))
-        #js{:fontSize (:tiny (:size (:font current-theme)))}))))
+      #js{:fontSize (:tiny (:size (:font current-theme)))})))
 
 (defn support-section
   "Returns the 'Support' section of the website"

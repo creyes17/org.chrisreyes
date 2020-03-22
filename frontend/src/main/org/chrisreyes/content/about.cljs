@@ -91,7 +91,8 @@
   "A Reagent component for an image with text floating above it"
   [props]
   [image-with-text-container
-   [image-for-text-image {:src (:src props)}]
+   [image-for-text-image {:alt (:alt props)
+                          :src (:src props)}]
    [image-for-text-text
     {:placement (:placement props)
      :fontSize (:fontSize props)}
@@ -102,7 +103,8 @@
   []
   [:section
    [header/section-header "About Me"]
-   [ImageWithText {:src "https://lh3.googleusercontent.com/Wq98lRpbVzx2N_3XkYqynSVw_L9Wch7IA-tGjZaznB6WseSe7r4PaRYhkV5MZ5250Fk8-unuG_PXYi01JLU=w1022-h766-rw-no"
+   [ImageWithText {:alt "Chris Reyes is wearing sunglasses and a Star Wars tee-shirt while smiling."
+                   :src "https://lh3.googleusercontent.com/Wq98lRpbVzx2N_3XkYqynSVw_L9Wch7IA-tGjZaznB6WseSe7r4PaRYhkV5MZ5250Fk8-unuG_PXYi01JLU=w1022-h766-rw-no"
                    :text description
                    :fontSize "subtitle"
                    :placement "top-right"}]])

@@ -36,10 +36,16 @@
            :tertiary {:opaque "rgb(255,160,122)"
                       :contrast "#1C2833"
                       :transparent "rgba(255,160,122,0.65)"}}
-   :font {:size {:header "6vh"
-                 :subtitle "4vh"
-                 :normal "3vh"
+   :font {:size {:header "5em"
+                 :subtitle "3em"
+                 :normal "1em"
                  :tiny "2vmin"}}})
+
+(def screen-size
+  {:tiny "@media screen and (min-width: 1px)"
+   :small "@media screen and (min-width: 982px)"
+   :medium "@media screen and (min-width: 1200px)"
+   :large "@media screen and (min-width: 1600px)"})
 
 ; React Context to pass the theme down
 (defonce theme-context (react/createContext))
