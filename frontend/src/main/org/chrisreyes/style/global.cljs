@@ -20,17 +20,19 @@
     ["react-router-dom" :as router]))
 
 (defn global-style-inner [props]
-  (let [background-colors (:background
-                 (:color
-                   (:$theme
-                     (js->clj
-                       props
-                       :keywordize-keys
-                       true))))]
+  (let [current-theme (:$theme
+                        (js->clj
+                          props
+                          :keywordize-keys
+                          true))
+        background-colors (:background
+                            (:color current-theme))]
   [:style (str "body {background-color: "
                (:opaque background-colors)
                "; color: "
                (:contrast background-colors)
+               "; font-size: "
+               (:normal (:size (:font current-theme)))
                ";}")]))
 
 (def global-style

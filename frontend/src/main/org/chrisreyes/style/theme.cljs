@@ -35,7 +35,11 @@
                        :transparent "rgba(221,160,221,0.65)"}
            :tertiary {:opaque "rgb(255,160,122)"
                       :contrast "#1C2833"
-                      :transparent "rgba(255,160,122,0.65)"}}})
+                      :transparent "rgba(255,160,122,0.65)"}}
+   :font {:size {:header "6vh"
+                 :subtitle "4vh"
+                 :normal "3vh"
+                 :tiny "2vmin"}}})
 
 ; React Context to pass the theme down
 (defonce theme-context (react/createContext))

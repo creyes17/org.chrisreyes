@@ -18,6 +18,7 @@
   (:require
     [org.chrisreyes.component.menu :refer (Menu)]
     [org.chrisreyes.content.about :refer (about-section)]
+    [org.chrisreyes.content.support :refer (support-section)]
     [org.chrisreyes.style.global :refer (global-style)]
     [org.chrisreyes.style.theme :as theme]
     [reagent.dom]
@@ -79,7 +80,7 @@
                                       about-section)}]
        [:> router/Route {:path "/support/"
                          :component (reagent.core/reactify-component
-                                      (fn [] [:div "TODO: Support Section"]))}]]]]]])
+                                      support-section)}]]]]]])
 
 (defn ^:dev/after-load start []
   (reagent.dom/render App

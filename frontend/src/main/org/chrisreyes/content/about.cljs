@@ -17,7 +17,8 @@
 ; TODO: Turn this into an extensible "photo-tile" component or
 ; something and then load this content from AWS or a file or something.
 (ns org.chrisreyes.content.about
-  (:require [org.chrisreyes.style.theme :as theme]))
+  (:require [org.chrisreyes.component.header :as header]
+            [org.chrisreyes.style.theme :as theme]))
 
 (def description
   "Hi, my name is Chris. When I'm not coding at work,
@@ -53,13 +54,17 @@
                             "bottom-right" bottom-right
                             "top-left" top-left
                             "top-right" top-right}
-                           (:placement clj-props "top-right"))]
+                           (:placement clj-props "top-right"))
+            font-size (get (:size (:font current-theme))
+                           (keyword
+                             (:fontSize clj-props "normal")))]
         (clj->js (conj {:backgroundColor (:transparent
                                            (:primary
                                              (:color current-theme)))
                         :color (:contrast
                                  (:primary
                                    (:color current-theme)))
+                        :fontSize font-size
                         :height "auto"
                         :margin "0 auto"
                         :maxHeight "50%"
@@ -74,14 +79,12 @@
   (theme/styled
     "div"
     (fn [clj-props current-theme]
-      #js{
-          :display "inline-block"
+      #js{:display "inline-block"
           :position "relative"
           :marginLeft "auto"
           :marginRight "auto"
           :width "100%"
-          :height "fit-content"
-          })))
+          :height "fit-content"})))
 
 ; TODO: Make responsive on mobile
 (defn ImageWithText
@@ -90,12 +93,16 @@
   [image-with-text-container
    [image-for-text-image {:src (:src props)}]
    [image-for-text-text
-    {:placement (:placement props)}
+    {:placement (:placement props)
+     :fontSize (:fontSize props)}
     (:text props)]])
 
 (defn about-section
   "Returns the 'About Me' section of the website"
   []
-  [ImageWithText {:src "https://lh3.googleusercontent.com/Wq98lRpbVzx2N_3XkYqynSVw_L9Wch7IA-tGjZaznB6WseSe7r4PaRYhkV5MZ5250Fk8-unuG_PXYi01JLU=w1022-h766-rw-no"
-                  :text description
-                  :placement "top-right"}])
+  [:section
+   [header/section-header "About Me"]
+   [ImageWithText {:src "https://lh3.googleusercontent.com/Wq98lRpbVzx2N_3XkYqynSVw_L9Wch7IA-tGjZaznB6WseSe7r4PaRYhkV5MZ5250Fk8-unuG_PXYi01JLU=w1022-h766-rw-no"
+                   :text description
+                   :fontSize "subtitle"
+                   :placement "top-right"}]])
