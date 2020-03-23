@@ -18,6 +18,7 @@
   (:require
     [org.chrisreyes.component.menu :as menu]
     [org.chrisreyes.content.about :refer (about-section)]
+    [org.chrisreyes.content.contact :refer (contact-section)]
     [org.chrisreyes.content.support :refer (support-section)]
     [org.chrisreyes.style.global :refer (global-style)]
     [org.chrisreyes.style.theme :as theme]
@@ -57,9 +58,12 @@
                          :exact true
                          :component (reagent.core/reactify-component
                                       about-section)}]
-       [:> router/Route {:path "/support/"
+       [:> router/Route {:path "/support"
                          :component (reagent.core/reactify-component
-                                      support-section)}]]]]]])
+                                      support-section)}]
+       [:> router/Route {:path "/contact"
+                         :component (reagent.core/reactify-component
+                                      contact-section)}]]]]]])
 
 (defn ^:dev/after-load start []
   (reagent.dom/render App

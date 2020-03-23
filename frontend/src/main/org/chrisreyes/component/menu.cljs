@@ -24,9 +24,12 @@
   (theme/styled
     router/Link
     (fn [clj-props current-theme]
-      #js{:color (:opaque (:primary (:color current-theme)))
-          :flex "2 2 24%"
-          :textDecoration "none"})))
+      (let [title-color (:opaque (:primary (:color current-theme)))]
+        #js{":link" #js{:color title-color}
+            ":visited" #js{:color title-color}
+            :color title-color
+            :flex "3 3 15%"
+            :textDecoration "none"}))))
 
 (defn make-active-classname
   ; This is going to get a little complicated...
@@ -61,7 +64,7 @@
       (clj->js {":link" {:color inactive-color}
                 ":visited" {:color inactive-color}
                 :color inactive-color
-                :flex "1 1 24%"
+                :flex "1 1 15%"
                 :textAlign "right"})))))
 
 (defn nav-link-template
@@ -103,4 +106,5 @@
      [flexbox-container
        [site-title {:to "/"} "Chris Reyes"]
        [nav-link {:to "/" :exact true} "About"]
-       [nav-link {:to "/support"} "Support"]]]))
+       [nav-link {:to "/support"} "Support"]
+       [nav-link {:to "/contact"} "Contact"]]]))

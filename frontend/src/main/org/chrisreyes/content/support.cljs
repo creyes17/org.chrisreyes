@@ -93,11 +93,14 @@
   (theme/styled
     "a"
     (fn [clj-props current-theme]
-      #js{:color (:contrast
-                   (:tertiary
-                     (:color current-theme)))
-          :height "100%"
-          :width "100%"})))
+      (let [link-color (:contrast
+                         (:tertiary
+                           (:color current-theme)))]
+        #js{":link" #js{:color link-color}
+            ":visited" #js{:color link-color}
+            :color link-color
+            :height "100%"
+            :width "100%"}))))
 
 (defn organization-card
   "A styled 'card' representing an organization"

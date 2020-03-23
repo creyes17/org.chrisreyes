@@ -25,15 +25,18 @@
                           props
                           :keywordize-keys
                           true))
-        background-colors (:background
-                            (:color current-theme))]
+        colors (:color current-theme)
+        background-colors (:background colors)
+        new-link-color (:opaque (:tertiary colors))
+        visited-link-color (:opaque (:secondary colors))]
   [:style (str "body {background-color: "
                (:opaque background-colors)
                "; color: "
                (:contrast background-colors)
                "; font-size: "
                (:normal (:size (:font current-theme)))
-               ";}")]))
+               ";}\n a:link {color: " new-link-color
+               ";}\n a:visited {color: " visited-link-color)]))
 
 (def global-style
   (theme/with-theme global-style-inner))
