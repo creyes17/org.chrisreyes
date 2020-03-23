@@ -33,11 +33,9 @@
   (theme/styled
     "div"
     (fn [clj-props current-theme]
-      #js{:backgroundColor (:opaque (:primary (:color current-theme)))
-          :width "100%"
+      #js{:width "100%"
           :textAlign "center"
           :fontSize (:subtitle (:size (:font current-theme)))
-          :color (:contrast (:primary (:color current-theme)))
           :marginBottom "2vh"})))
 
 (def organization-outer-container
@@ -69,10 +67,10 @@
          ; Four cards per row on larger screens
          (:large theme/screen-size) #js{:flex "0 1 24%"}
          :backgroundColor (:opaque
-                            (:tertiary
+                            (:primary
                               (:color current-theme)))
          :color (:contrast
-                  (:tertiary
+                  (:primary
                     (:color current-theme)))
          :fontSize (:subtitle (:size (:font current-theme)))
          :marginTop "1vh"
