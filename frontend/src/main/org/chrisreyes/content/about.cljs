@@ -21,7 +21,7 @@
             [org.chrisreyes.style.theme :as theme]))
 
 (def description
-  "Hi, my name is Chris. When I'm not coding at work,
+  "Hi, my name is Chris and I use he/him/his pronouns. When I'm not coding at work,
   I'm training for bike rides for charity, playing
   games with friends, or investing in real estate. I'll
   occasionally post updates here!")

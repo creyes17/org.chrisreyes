@@ -45,15 +45,35 @@
           :marginRight "auto"
           :width "75%"})))
 
+(def skip-link
+  (theme/styled
+    "a"
+    (fn [clj-props current-theme]
+      (let [visible-props #js{:height "auto"
+                              :left 0
+                              :overflow "visible"
+                              :top 0
+                              :width "auto"}]
+      #js{":active" visible-props
+          ":focus" visible-props
+          ":hover" visible-props
+          :height "1px"
+          :left "-1000px"
+          :overflow "hidden"
+          :position "absolute"
+          :top "-1000px"
+          :width "1px"}))))
+
 (def App
   [:<>
    [theme/ThemeProvider
     [:> StyletronProvider
      {:value engine}
      [global-style]
+     [skip-link {:href "#content"} "Skip to Content"]
      [:> router/BrowserRouter
       [menu/Menu (partial menu/make-active-classname engine)]
-      [main
+      [main {:id "content"}
        [:> router/Route {:path "/"
                          :exact true
                          :component (reagent.core/reactify-component
