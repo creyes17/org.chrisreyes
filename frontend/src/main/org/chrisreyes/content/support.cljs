@@ -129,34 +129,34 @@
    [intro-block description]
    [organization-outer-container
     [organization-card
-     {:image-url "https://secure.nationalmssociety.org/images/content/pagebuilder/2013-bike_ms_badge_final-a1188792.jpg"
+     {:image-url "/assets/bike-ms-logo.jpg"
       :title "National MS Society"
       :url "http://nationalmssociety.org/goto/chrisreyes"}]
     [organization-card
-     {:image-url "https://www.acceleratedcure.org/sites/default/files/accelerated-cure-logo.png"
+     {:image-url "/assets/accelerated-cure-project-logo.png"
       :title "Accelerated Cure Project"
       :url "https://www.acceleratedcure.org/"}]
     [organization-card
      {:$background "white"
-      :image-url "https://wp-cdn.milocloud.com/aids-life-cycle-wp/wp-content/uploads/20160907202526/AIDSLifeCycle-Logo.png"
+      :image-url "/assets/aids-lifecycle-logo.png"
       :title "AIDS/LifeCycle"
       :url "http://www.tofighthiv.org/goto/ChrisReyes"}]
     [organization-card
      {:$background "white"
-      :image-url "https://www.savethechildren.org/etc/clientlibs/us/clientlib-site/images/icons/stc-logo.svg"
+      :image-url "/assets/save-the-children-logo.svg"
       :title "Save the Children"
       :url "https://www.savethechildren.org/"}]
     [organization-card
-     {:image-url "https://www.childfund.org/images/CFLogo2016.jpg"
+     {:image-url "/assets/childfund-international-logo.jpg"
       :title "ChildFund International"
       :url "https://www.childfund.org/"}]
     [organization-card
-     {:image-url "https://static.radio.net/images/broadcasts/5c/b0/9227/c300.png"
+     {:image-url "/assets/kqed-logo.png"
       :title "KQED Public Radio"
       :url "https://www.kqed.org/"}]
     [organization-card
      {:$background "white"
-      :image-url "https://www.younglife.org/About/PublishingImages/YL-Prmry-Color.png"
+      :image-url "/assets/young-life-logo.png"
       :title "Young Life"
       :url "https://www.younglife.org/Giving/Pages/default.aspx"}]]
    [:div "Disclaimer: "

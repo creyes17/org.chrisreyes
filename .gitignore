@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 frontend/public/app/js
+frontend/public/app/assets
 .shadow-cljs
 
 tags
