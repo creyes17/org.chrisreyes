@@ -32,7 +32,7 @@
     "img"
     (fn [clj-props current-theme]
       #js{:width "100%"
-          :z-index 0})))
+          :zIndex 0})))
 
 (def image-for-text-text
   (theme/styled
@@ -58,22 +58,25 @@
             font-size (get (:size (:font current-theme))
                            (keyword
                              (:fontSize clj-props "normal")))]
-        (clj->js (conj {:backgroundColor (:transparent
-                                           (:primary
-                                             (:color current-theme)))
-                        :color (:contrast
-                                 (:primary
-                                   (:color current-theme)))
-                        :fontSize font-size
-                        :height "auto"
-                        :margin "0 auto"
-                        :maxHeight "50%"
-                        :position "absolute"
-                        :textAlign "center"
-                        :verticalAlign "middle"
-                        :width "50%"
-                        :z-index 1}
-                       placement))))))
+        (clj->js
+          (conj {:fontSize font-size
+                 :height "auto"
+                 :margin "0 auto"
+                 :textAlign "center"
+                 :verticalAlign "middle"
+                 (:large theme/screen-size) (conj
+                                              {:backgroundColor
+                                               (:transparent
+                                                 (:primary
+                                                   (:color current-theme)))
+                                               :color (:contrast
+                                                        (:primary
+                                                          (:color current-theme)))
+                                               :maxHeight "50%"
+                                               :position "absolute"
+                                               :width "50%"
+                                               :zIndex 1}
+                                              placement)}))))))
 
 (def image-with-text-container
   (theme/styled
@@ -86,7 +89,6 @@
           :width "100%"
           :height "fit-content"})))
 
-; TODO: Make responsive on mobile
 (defn ImageWithText
   "A Reagent component for an image with text floating above it"
   [props]
@@ -106,5 +108,4 @@
    [ImageWithText {:alt "Chris Reyes is wearing sunglasses and a Star Wars tee-shirt while smiling."
                    :src "https://lh3.googleusercontent.com/Wq98lRpbVzx2N_3XkYqynSVw_L9Wch7IA-tGjZaznB6WseSe7r4PaRYhkV5MZ5250Fk8-unuG_PXYi01JLU=w1022-h766-rw-no"
                    :text description
-                   :fontSize "subtitle"
                    :placement "top-right"}]])

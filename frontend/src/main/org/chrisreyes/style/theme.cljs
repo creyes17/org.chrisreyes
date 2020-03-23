@@ -36,9 +36,9 @@
            :tertiary {:opaque "rgb(255,160,122)"
                       :contrast "#1C2833"
                       :transparent "rgba(255,160,122,0.65)"}}
-   :font {:size {:header "5em"
+   :font {:size {:header "4em"
                  :subtitle "3em"
-                 :normal "1em"
+                 :normal "2em"
                  :tiny "2vmin"}}})
 
 (def screen-size
