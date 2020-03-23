@@ -36,10 +36,10 @@
            :tertiary {:opaque "rgb(255,160,122)"
                       :contrast "#1C2833"
                       :transparent "rgba(255,160,122,0.65)"}}
-   :font {:size {:header "4em"
-                 :subtitle "3em"
-                 :normal "2em"
-                 :tiny "2vmin"}}})
+   :font {:size {:header "xx-large"
+                 :subtitle "x-large"
+                 :normal "large"
+                 :tiny "small"}}})
 
 (def screen-size
   {:tiny "@media screen and (min-width: 1px)"

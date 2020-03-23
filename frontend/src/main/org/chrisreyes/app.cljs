@@ -32,27 +32,6 @@
 
 ;TODO: Rename all these components to be more clojure-tastic.
 
-(def TestLink
-  (theme/styled
-    "a"
-    (fn [clj-props current-theme]
-      #js{:backgroundColor (:$background
-                             clj-props
-                             (:opaque
-                               (:primary
-                                 (:color current-theme {})
-                                 {})
-                               "black"))
-          :color (:$color
-                   clj-props
-                   (:contrast
-                     (:primary
-                       (:color current-theme {}) {})
-                     "purple"))
-          :display "block"
-          :padding "1vh"
-          :textAlign "center"})))
-
 ;TODO: skip-to-content link
 ;TODO: Load routes from data (AWS or local file or something)
 

@@ -20,12 +20,12 @@
     [reagent.core]
     ["react-router-dom" :as router]))
 
-; TODO: Add flexbox styling
 (def site-title
   (theme/styled
-    router/NavLink
+    router/Link
     (fn [clj-props current-theme]
       #js{:color (:opaque (:primary (:color current-theme)))
+          :flex "2 2 24%"
           :textDecoration "none"})))
 
 (defn make-active-classname
@@ -39,21 +39,30 @@
   [styletron-client current-theme]
   (.renderStyle
     styletron-client
-    #js{:color (:opaque
-                 (:secondary
-                   (:color current-theme)))}))
+    (let [color (str (:opaque
+                       (:secondary
+                         (:color current-theme)))
+                     ; This is bad, but I can't figure out
+                     ; how to change precedence for this
+                     ; "active" class otherwise.
+                     ; TODO: Find a better way. See
+                     ; https://stackoverflow.com/q/60819183/5537109
+                     " !important")]
+      #js{":link" #js{:color color}
+          ":visited" #js{:color color}
+          :color color
+          :textDecoration "none"})))
 
-; TODO: Add flexbox styling
 (def styled-nav-link
   (theme/styled
     router/NavLink
     (fn [clj-props current-theme]
       (let [inactive-color (:contrast (:background (:color current-theme)))]
-      (clj->js {
-                :color inactive-color
-                ":link" {:color inactive-color}
+      (clj->js {":link" {:color inactive-color}
                 ":visited" {:color inactive-color}
-                })))))
+                :color inactive-color
+                :flex "1 1 24%"
+                :textAlign "right"})))))
 
 (defn nav-link-template
   [make-classname]
@@ -72,8 +81,7 @@
     "div"
     (fn [clj-props current-theme]
       (clj->js
-        {
-         (:tiny theme/screen-size) #js{:alignItems "stretch"}
+        {(:tiny theme/screen-size) #js{:alignItems "stretch"}
          (:small theme/screen-size) #js{:alignItems "stretch"}
          (:medium theme/screen-size) #js{:alignItems "stretch"}
          (:large theme/screen-size) #js{:alignItems "stretch"}
@@ -82,8 +90,8 @@
          :flexWrap "wrap"
          :fontSize (:subtitle (:size (:font current-theme)))
          :justifyContent "space-between"
-         :width "100%"
-         }))))
+         :margin "auto"
+         :width "75%"}))))
 
 (defn Menu
   "The Site navigation menu. Takes a function 'make-classname'
@@ -92,11 +100,7 @@
   [make-classname]
   (let [nav-link (nav-link-template make-classname)]
     [:nav
-     ; TODO: Switch to flexbox-container
-     [:ul
-      [:li
-       [site-title {:to "/"} "Chris Reyes"]]
-      [:li
-       [nav-link {:to "/"} "About"]]
-      [:li
-       [nav-link {:to "/support/"} "Support"]]]]))
+     [flexbox-container
+       [site-title {:to "/"} "Chris Reyes"]
+       [nav-link {:to "/" :exact true} "About"]
+       [nav-link {:to "/support"} "Support"]]]))
