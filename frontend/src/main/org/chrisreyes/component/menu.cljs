@@ -20,6 +20,7 @@
     [reagent.core]
     ["react-router-dom" :as router]))
 
+; TODO: Add flexbox styling
 (def site-title
   (theme/styled
     router/NavLink
@@ -42,17 +43,47 @@
                  (:secondary
                    (:color current-theme)))}))
 
+; TODO: Add flexbox styling
+(def styled-nav-link
+  (theme/styled
+    router/NavLink
+    (fn [clj-props current-theme]
+      (let [inactive-color (:contrast (:background (:color current-theme)))]
+      (clj->js {
+                :color inactive-color
+                ":link" {:color inactive-color}
+                ":visited" {:color inactive-color}
+                })))))
+
 (defn nav-link-template
   [make-classname]
   (theme/with-theme
     (fn [props & children]
       (into
-        [:> router/NavLink
+        [styled-nav-link
          (conj props
                {:activeClassName
                 (make-classname (js->clj (:$theme props)
                                          :keywordize-keys true))})
          children]))))
+
+(def flexbox-container
+  (theme/styled
+    "div"
+    (fn [clj-props current-theme]
+      (clj->js
+        {
+         (:tiny theme/screen-size) #js{:alignItems "stretch"}
+         (:small theme/screen-size) #js{:alignItems "stretch"}
+         (:medium theme/screen-size) #js{:alignItems "stretch"}
+         (:large theme/screen-size) #js{:alignItems "stretch"}
+         :alignItems "stretch"
+         :display "flex"
+         :flexWrap "wrap"
+         :fontSize (:subtitle (:size (:font current-theme)))
+         :justifyContent "space-between"
+         :width "100%"
+         }))))
 
 (defn Menu
   "The Site navigation menu. Takes a function 'make-classname'
@@ -61,6 +92,7 @@
   [make-classname]
   (let [nav-link (nav-link-template make-classname)]
     [:nav
+     ; TODO: Switch to flexbox-container
      [:ul
       [:li
        [site-title {:to "/"} "Chris Reyes"]]
