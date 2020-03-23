@@ -16,7 +16,7 @@
 
 (ns org.chrisreyes.app
   (:require
-    [org.chrisreyes.component.menu :refer (Menu)]
+    [org.chrisreyes.component.menu :as menu]
     [org.chrisreyes.content.about :refer (about-section)]
     [org.chrisreyes.content.support :refer (support-section)]
     [org.chrisreyes.style.global :refer (global-style)]
@@ -72,7 +72,7 @@
      {:value engine}
      [global-style]
      [:> router/BrowserRouter
-      [Menu]
+      [menu/Menu (partial menu/make-active-classname engine)]
       [main
        [:> router/Route {:path "/"
                          :exact true
