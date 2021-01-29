@@ -15,3 +15,5 @@
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (ns org.chrisreyes.backend.api)
+; See https://developers.google.com/identity/sign-in/web/sign-in for OAuth instructions
+; Also https://developers.google.com/identity/sign-in/web/backend-auth for backend auth instructions
