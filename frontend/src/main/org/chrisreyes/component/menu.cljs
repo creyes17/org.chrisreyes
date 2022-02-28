@@ -17,6 +17,7 @@
 (ns org.chrisreyes.component.menu
   (:require
     [org.chrisreyes.style.theme :as theme]
+    [org.chrisreyes.component.oauth :as oauth]
     [reagent.core]
     ["react-router-dom" :as router]))
 
@@ -107,4 +108,5 @@
        [site-title {:to "/"} "Chris Reyes"]
        [nav-link {:to "/" :exact true} "About"]
        [nav-link {:to "/support"} "Support"]
-       [nav-link {:to "/contact"} "Contact"]]]))
+       [nav-link {:to "/contact"} "Contact"]
+       [oauth/google-signin-button]]]))

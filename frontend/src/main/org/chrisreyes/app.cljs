@@ -17,6 +17,7 @@
 (ns org.chrisreyes.app
   (:require
     [org.chrisreyes.component.menu :as menu]
+    [org.chrisreyes.component.oauth :as oauth]
     [org.chrisreyes.content.about :refer (about-section)]
     [org.chrisreyes.content.contact :refer (contact-section)]
     [org.chrisreyes.content.support :refer (support-section)]
@@ -86,8 +87,10 @@
                                       contact-section)}]]]]]])
 
 (defn ^:dev/after-load start []
-  (reagent.dom/render App
-                      (.getElementById js/document "root")))
+  (do
+    (reagent.dom/render (oauth/google-signin-scripts) (.-head js/document))
+    (reagent.dom/render App
+                        (.getElementById js/document "root"))))
 
 (defn init []
   (start))

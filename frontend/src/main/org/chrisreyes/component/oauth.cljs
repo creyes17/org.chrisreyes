@@ -14,13 +14,20 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(ns org.chrisreyes.component.header
-  (:require [org.chrisreyes.style.theme :as theme]))
+(ns org.chrisreyes.component.oauth)
 
-(def section-header
-  (theme/styled
-    "h1"
-    (fn [clj-props current-theme]
-      #js{:fontSize (:header (:size (:font current-theme)))
-          :textAlign "center"
-          :width "100%"})))
+(defn google-signin-scripts
+  []
+  [:<>
+    [:script {:src "https://apis.google.com/js/platform.js" :async true :defer true}]
+    [:meta {:name "google-signin-client_id"
+            :content "260066049322-aqtv4d9dlv7leb93kkgdo48sseagr6pd.apps.googleusercontent.com"}]])
+
+(defn google-signin-button
+  []
+  [:div {:class "g-signin2"
+         :data-onsuccess "onSignIn"}])
+
+(defn onSignIn
+  [google-user]
+  (println "Logged in"))
