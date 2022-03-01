@@ -87,10 +87,8 @@
                                       contact-section)}]]]]]])
 
 (defn ^:dev/after-load start []
-  (do
-    (reagent.dom/render (oauth/google-signin-scripts) (.-head js/document))
-    (reagent.dom/render App
-                        (.getElementById js/document "root"))))
+  (reagent.dom/render App
+                      (.getElementById js/document "root")))
 
 (defn init []
   (start))

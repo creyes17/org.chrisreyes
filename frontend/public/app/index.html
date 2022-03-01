@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Chris Reyes</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script src="/js/main.js"></script>
-  </body>
-</html>
 <!--
 org.chrisreyes - The source code for https://chrisreyes.org
 Copyright (C) 2020  Christopher R. Reyes
@@ -26,3 +16,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <!-- TODO: I don't want to hardcode this client-id. I'd like to figure
+            out a deploy process where this file is generated from a template
+            instead. -->
+        <meta
+            name="google-signin-client_id"
+            content="260066049322-aqtv4d9dlv7leb93kkgdo48sseagr6pd.apps.googleusercontent.com"
+        />
+        <script
+            src="https://apis.google.com/js/platform.js"
+            async
+            defer
+        ></script>
+        <title>Chris Reyes</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script src="/js/main.js"></script>
+    </body>
+</html>

@@ -16,13 +16,6 @@
 
 (ns org.chrisreyes.component.oauth)
 
-(defn google-signin-scripts
-  []
-  [:<>
-    [:script {:src "https://apis.google.com/js/platform.js" :async true :defer true}]
-    [:meta {:name "google-signin-client_id"
-            :content "260066049322-aqtv4d9dlv7leb93kkgdo48sseagr6pd.apps.googleusercontent.com"}]])
-
 (defn google-signin-button
   []
   [:div {:class "g-signin2"
