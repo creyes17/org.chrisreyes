@@ -22,7 +22,7 @@
  :dependencies
  [[reagent "0.10.0"]]
 
- :dev-http {8080 "public/app/"}
+ :dev-http {8000 "public/app/"}
 
  :builds
  {:app {:target :browser
