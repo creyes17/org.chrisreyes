@@ -27,6 +27,7 @@
   "src/test"]
 
  :dependencies
- [[reagent "0.10.0"]]
+ [[de.ubercode.clostache/clostache "1.4.0"]
+  [reagent "0.10.0"]]
 
  :dev-http {8000 "public/app/"}}
