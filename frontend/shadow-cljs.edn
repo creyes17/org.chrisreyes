@@ -15,19 +15,18 @@
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;; shadow-cljs configuration
-{:source-paths
+{:builds
+ {:app {:devtools {:hud #{:errors :warnings :progress}
+                   :repl-pprint true}
+        :module-hash-names true
+        :modules {:main {:init-fn org.chrisreyes.app/init}}
+        :output-dir "public/app/js"
+        :target :browser}}
+ :source-paths
  ["src/main"
   "src/test"]
 
  :dependencies
  [[reagent "0.10.0"]]
 
- :dev-http {8000 "public/app/"}
-
- :builds
- {:app {:target :browser
-        :output-dir "public/app/js"
-        :devtools {:hud #{:errors :warnings :progress}
-                   :repl-pprint true}
-        :module-hash-names true
-        :modules {:main {:init-fn org.chrisreyes.app/init}}}}}
+ :dev-http {8000 "public/app/"}}
