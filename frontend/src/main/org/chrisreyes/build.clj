@@ -20,7 +20,7 @@
     [clojure.java.io :as io]))
 
 (defn generate-index
-  {:shadow.build/stage :compile-finish}
+  {:shadow.build/stage :flush}
   [build-state]
   "Generate the index.html file"
   (do
