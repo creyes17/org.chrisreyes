@@ -32,9 +32,6 @@
 (def engine
   (new StyletronClient))
 
-;TODO: Rename all these components to be more clojure-tastic.
-
-;TODO: skip-to-content link
 ;TODO: Load routes from data (AWS or local file or something)
 
 (def main
