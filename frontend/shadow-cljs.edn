@@ -17,19 +17,20 @@
 ;; shadow-cljs configuration
 {:builds
  ; see https://shadow-cljs.github.io/docs/UsersGuide.html#_build_configuration
- {:app {:build-hooks [(org.chrisreyes.build/pre-build)]
+ {:app {:build-hooks [(org.chrisreyes.build/generate-index)]
         :devtools {:hud #{:errors :warnings :progress}
                    :repl-pprint true}
         :module-hash-names true
         :modules {:main {:init-fn org.chrisreyes.app/init}}
-        :output-dir "public/app/js"
+        :output-dir "public/app"
         :target :browser}}
  :source-paths
  ["src/main"
+  "src/resources"
   "src/test"]
 
  :dependencies
  [[de.ubercode.clostache/clostache "1.4.0"]
   [reagent "0.10.0"]]
 
- :dev-http {8000 "public/app/"}}
+ :dev-http {8000 "public/app"}}

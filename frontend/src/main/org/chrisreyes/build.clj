@@ -14,11 +14,19 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(ns org.chrisreyes.app
+(ns org.chrisreyes.build
   (:require
-    [clostache.parser :as parser]))
+    [clostache.parser :as parser]
+    [clojure.java.io :as io]))
 
-(defn pre-build
-  []
-  ""
-  nil)
+(defn generate-index
+  {:shadow.build/stage :compile-finish}
+  [build-state]
+  "Generate the index.html file"
+  (do
+    (with-open [writer (io/writer (str (:output-dir (:shadow.build/config build-state))
+                                       "/index.html"))]
+      (.write writer (parser/render-resource
+                       "template/index.mustache"
+                       {:google-signin-client-id "260066049322-aqtv4d9dlv7leb93kkgdo48sseagr6pd"})))
+    build-state))
