@@ -28,5 +28,5 @@
                                        "/index.html"))]
       (.write writer (parser/render-resource
                        "template/index.mustache"
-                       {:google-signin-client-id "260066049322-aqtv4d9dlv7leb93kkgdo48sseagr6pd"})))
+                       {:google-signin-client-id (System/getenv "CREYES17_ORG_CHRISREYES_GOOGLE")})))
     build-state))
