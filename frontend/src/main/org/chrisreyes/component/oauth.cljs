@@ -19,8 +19,8 @@
 (defn google-signin-button
   []
   [:div {:class "g-signin2"
-         :data-onsuccess "onSignIn"}])
+         :data-onsuccess "org.chrisreyes.component.oauth.onSignIn"}])
 
 (defn onSignIn
   [google-user]
-  (println "Logged in"))
+  ((.-log js/console) "Logged in"))
