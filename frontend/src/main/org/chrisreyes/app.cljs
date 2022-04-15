@@ -16,76 +16,14 @@
 
 (ns org.chrisreyes.app
   (:require
-    [org.chrisreyes.component.menu :as menu]
-    [org.chrisreyes.component.oauth :as oauth]
-    [org.chrisreyes.content.about :refer (about-section)]
-    [org.chrisreyes.content.contact :refer (contact-section)]
-    [org.chrisreyes.content.support :refer (support-section)]
-    [org.chrisreyes.style.global :refer (global-style)]
-    [org.chrisreyes.style.theme :as theme]
+    [org.chrisreyes.component.app :as app]
     [reagent.dom]
-    [reagent.core]
-    ["react-router-dom" :as router]
-    ["styletron-engine-atomic" :rename {Client StyletronClient}]
-    ["styletron-react" :rename {Provider StyletronProvider}]))
-
-(def engine
-  (new StyletronClient))
-
-;TODO: Load routes from data (AWS or local file or something)
-
-(def main
-  (theme/styled
-    "main"
-    (fn [clj-props current-theme]
-      #js{:display "block"
-          :marginLeft "auto"
-          :marginRight "auto"
-          :width "75%"})))
-
-(def skip-link
-  (theme/styled
-    "a"
-    (fn [clj-props current-theme]
-      (let [visible-props #js{:height "auto"
-                              :left 0
-                              :overflow "visible"
-                              :top 0
-                              :width "auto"}]
-      #js{":active" visible-props
-          ":focus" visible-props
-          ":hover" visible-props
-          :height "1px"
-          :left "-1000px"
-          :overflow "hidden"
-          :position "absolute"
-          :top "-1000px"
-          :width "1px"}))))
-
-(def App
-  [:<>
-   [theme/ThemeProvider
-    [:> StyletronProvider
-     {:value engine}
-     [global-style]
-     [skip-link {:href "#content"} "Skip to Content"]
-     [:> router/BrowserRouter
-      [menu/Menu (partial menu/make-active-classname engine)]
-      [main {:id "content"}
-       [:> router/Route {:path "/"
-                         :exact true
-                         :component (reagent.core/reactify-component
-                                      about-section)}]
-       [:> router/Route {:path "/support"
-                         :component (reagent.core/reactify-component
-                                      support-section)}]
-       [:> router/Route {:path "/contact"
-                         :component (reagent.core/reactify-component
-                                      contact-section)}]]]]]])
+    [re-frame.core :as reframe]))
 
 (defn ^:dev/after-load start []
-  (reagent.dom/render App
+  (reagent.dom/render app/App
                       (.getElementById js/document "root")))
 
 (defn init []
+  ;(reframe/dispatch-sync [:initialize-db])
   (start))
