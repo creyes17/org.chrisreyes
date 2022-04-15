@@ -14,24 +14,8 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;; shadow-cljs configuration
-{:builds
- ; see https://shadow-cljs.github.io/docs/UsersGuide.html#_build_configuration
- {:app {:build-hooks [(org.chrisreyes.build/generate-index)]
-        :devtools {:hud #{:errors :warnings :progress}
-                   :repl-pprint true}
-        :module-hash-names true
-        :modules {:main {:init-fn org.chrisreyes.app/init}}
-        :output-dir "public/app"
-        :target :browser}}
- :source-paths
- ["src/main"
-  "src/resources"
-  "src/test"]
+(ns org.chrisreyes.reframe.event)
 
- :dependencies
- [[de.ubercode.clostache/clostache "1.4.0"]
-  [re-frame "1.3.0-rc3"]
-  [reagent "0.10.0"]]
-
- :dev-http {8000 "public/app"}}
+(defn initialize-db
+  [_]
+  #:org.chrisreyes{:user nil})

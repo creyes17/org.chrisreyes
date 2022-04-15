@@ -17,13 +17,14 @@
 (ns org.chrisreyes.app
   (:require
     [org.chrisreyes.component.app :as app]
-    [reagent.dom]
-    [re-frame.core :as reframe]))
+    [org.chrisreyes.reframe.init :as init]
+    [reagent.dom]))
 
 (defn ^:dev/after-load start []
   (reagent.dom/render app/App
                       (.getElementById js/document "root")))
 
 (defn init []
-  ;(reframe/dispatch-sync [:initialize-db])
-  (start))
+  (init/start-reframe)
+  (start)
+  (init/setup-user-login))
