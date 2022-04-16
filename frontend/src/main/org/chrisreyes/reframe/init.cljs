@@ -19,6 +19,7 @@
     [cljs.spec.alpha :as spec]
     [org.chrisreyes.reframe.effect :as effect]
     [org.chrisreyes.reframe.event :as event]
+    [org.chrisreyes.reframe.query :as query]
     [re-frame.core]))
 
 (spec/def :org.chrisreyes/db
@@ -66,7 +67,13 @@
 (defn register-queries
   "TODO: Register queries AKA subscriptions"
   []
-  nil)
+  (re-frame.core/reg-sub
+    :user
+    query/user)
+  (re-frame.core/reg-sub
+    :username
+    :<- [:user]
+    query/username-from-user))
 
 (defn register-everything
   []

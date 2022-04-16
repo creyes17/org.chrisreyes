@@ -17,8 +17,10 @@
 ; TODO: Turn this into an extensible "photo-tile" component or
 ; something and then load this content from AWS or a file or something.
 (ns org.chrisreyes.content.about
-  (:require [org.chrisreyes.component.header :as header]
-            [org.chrisreyes.style.theme :as theme]))
+  (:require
+    [org.chrisreyes.component.header :as header]
+    [org.chrisreyes.style.theme :as theme]
+    [re-frame.core]))
 
 (def description
   "Hi, my name is Chris and I use he/him/his pronouns. When I'm not coding at work,
@@ -105,6 +107,10 @@
   []
   [:section
    [header/section-header "About Me"]
+   ; XXX: Just for testing
+   [:div (str
+           "Username is: "
+           @(re-frame.core/subscribe [:username]))]
    [ImageWithText {:alt "Chris Reyes is wearing sunglasses and a Star Wars tee-shirt while smiling."
                    :src "/assets/ProfilePhoto-2020-03-23.jpg"
                    :text description

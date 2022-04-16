@@ -33,7 +33,7 @@
       .-auth2
       ; See https://developers.google.com/identity/sign-in/web/reference#gapiauth2clientconfig
       ; for valid arguments to init
-      (.init {:client_id oauth/google-client-id})
+      (.init #js{:client_id oauth/google-client-id})
       ; XXX Seeing 400 response to https://accounts.google.com/_/IdpIFrameHttp/cspreport
       ; then it calls this first "onInit" rather than the second "onError"
       (.then #(re-frame.core/dispatch [:google-initialized-auth2 %])
@@ -54,6 +54,6 @@
   (-> js/gapi
       .-signin2
       (.render oauth/login-container-id
-               {:theme "dark"
-                :onsuccess #(re-frame.core/dispatch [:user-signed-in %])
-                :onfailure #(re-frame.core/dispatch [:user-failed-to-sign-in])})))
+               #js{:theme "dark"
+                   :onsuccess #(re-frame.core/dispatch [:user-signed-in %])
+                   :onfailure #(re-frame.core/dispatch [:user-failed-to-sign-in])})))
