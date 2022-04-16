@@ -16,11 +16,19 @@
 
 (ns org.chrisreyes.component.oauth)
 
+(goog-define google-client-id "set_in_shadow-cljs.edn")
+
+(def login-container-id
+  "login-container")
+
 (defn google-signin-button
   []
-  [:div {:class "g-signin2"
-         :data-onsuccess "org.chrisreyes.component.oauth.onSignIn"}])
+  ; See https://developers.google.com/identity/sign-in/web/reference#gapiauth2initparams
+  ; Let's try making our own button so that we can get access to the callbacks.
+  [:div {:id login-container-id}])
 
-(defn onSignIn
+(defn on-sign-in
   [google-user]
-  ((.-log js/console) "Logged in"))
+  ((.-log js/console) "Logged in")
+  ((.-log js/console) (str "Found google user? "
+                           (some? google-user))))

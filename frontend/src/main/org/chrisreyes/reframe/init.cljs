@@ -16,8 +16,9 @@
 
 (ns org.chrisreyes.reframe.init
   (:require
-    [org.chrisreyes.reframe.event :as event]
     [cljs.spec.alpha :as spec]
+    [org.chrisreyes.reframe.effect :as effect]
+    [org.chrisreyes.reframe.event :as event]
     [re-frame.core]))
 
 (spec/def :org.chrisreyes/db
@@ -25,16 +26,42 @@
     (spec/nilable (spec/map-of :org.chrisreyes/username string?))))
 
 (defn register-events
-  "TODO: Register events"
   []
   (re-frame.core/reg-event-db
-    :initialize-db
-    event/initialize-db))
+    :app-prepares-page
+    event/initialize-database)
+  (re-frame.core/reg-event-fx
+    :app-loaded-page
+    event/app-loaded-page)
+  (re-frame.core/reg-event-fx
+    :google-loaded-auth2
+    event/google-loaded-auth2)
+  (re-frame.core/reg-event-fx
+    :google-initialized-auth2
+    event/google-initialized-auth2)
+  (re-frame.core/reg-event-fx
+    :google-failed-to-initialize-auth2
+    event/google-initialized-auth2)
+  (re-frame.core/reg-event-db
+    :user-signed-in
+    event/configure-google-user)
+  (re-frame.core/reg-event-fx
+    :user-failed-to-sign-in
+    event/user-failed-to-sign-in)
+  )
 
 (defn register-effects
-  "TODO: Register effects (if any)"
   []
-  nil)
+  (re-frame.core/reg-fx
+    :load-google-auth! effect/load-google-auth!)
+  (re-frame.core/reg-fx
+    :initialize-google-auth! effect/initialize-google-auth!)
+  (re-frame.core/reg-fx
+    :render-signin-button! effect/render-signin-button!)
+  (re-frame.core/reg-fx
+    :google-failed-to-initialize-auth2! effect/google-failed-to-initialize-auth2!)
+  (re-frame.core/reg-fx
+    :user-failed-to-sign-in! effect/user-failed-to-sign-in!))
 
 (defn register-queries
   "TODO: Register queries AKA subscriptions"
@@ -50,8 +77,8 @@
 (defn start-reframe
   []
   (register-everything)
-  (re-frame.core/dispatch-sync [:initialize-db]))
+  (re-frame.core/dispatch-sync [:app-prepares-page]))
 
 (defn setup-user-login
   []
-  (re-frame.core/dispatch-sync [:setup-user-login]))
+  (re-frame.core/dispatch-sync [:app-loaded-page]))

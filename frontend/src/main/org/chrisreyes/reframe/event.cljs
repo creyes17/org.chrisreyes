@@ -16,6 +16,39 @@
 
 (ns org.chrisreyes.reframe.event)
 
-(defn initialize-db
+(defn initialize-database
   [_]
+  (.log js/console "initializing database")
   #:org.chrisreyes{:user nil})
+
+(defn app-loaded-page
+  [_ _]
+  {:fx [[:load-google-auth! nil]]})
+
+(defn google-loaded-auth2
+  [_ _]
+  {:fx [[:initialize-google-auth! nil]]})
+
+(defn google-initialized-auth2
+  [_ [_ google-auth]]
+  {:fx [[:render-signin-button! google-auth]]})
+
+(defn google-failed-to-initialize-auth2
+  [_ [_ error]]
+  {:fx [[:google-failed-to-initialize-auth2! error]]})
+
+(defn user-failed-to-sign-in
+  [_ _]
+  {:fx [[:user-failed-to-sign-in! nil]]})
+
+; TODO: Configure google signin button
+; TODO: Add listener handlers for signing in and out
+;   See https://developers.google.com/identity/sign-in/web/reference#googleauthissignedinlistenlistener
+(defn configure-google-user
+  [database [_ google-user]]
+  (.log js/console "configuring google user")
+  (assoc-in database
+            [:org.chrisreyes/user :org.chrisreyes/username]
+            (-> google-user
+                .getBasicProfile
+                .getEmail)))
