@@ -31,19 +31,13 @@
 
 (defn google-initialized-auth2
   [_ [_ google-auth]]
-  {:fx [[:render-signin-button! google-auth]]})
+  {:fx [[:render-signin-button! google-auth]
+        [:add-signin-listeners! google-auth]]})
 
 (defn google-failed-to-initialize-auth2
   [_ [_ error]]
   {:fx [[:google-failed-to-initialize-auth2! error]]})
 
-(defn user-failed-to-sign-in
-  [_ _]
-  {:fx [[:user-failed-to-sign-in! nil]]})
-
-; TODO: Configure google signin button
-; TODO: Add listener handlers for signing in and out
-;   See https://developers.google.com/identity/sign-in/web/reference#googleauthissignedinlistenlistener
 (defn configure-google-user
   [database [_ google-user]]
   (.log js/console "configuring google user")
@@ -52,3 +46,22 @@
             (-> google-user
                 .getBasicProfile
                 .getEmail)))
+
+(defn clear-google-user
+  [database]
+  (.log js/console "Clearing google user")
+  (assoc-in database
+            [:org.chrisreyes/user :org.chrisreyes/username]
+            nil))
+
+(defn user-toggles-sign-in
+  [database [_ signed-in?]]
+  (.log js/console "User signed in or out")
+  (if signed-in?
+    (let [google-user (-> js/gapi
+                          .-auth2
+                          .getAuthInstance
+                          .-currentUser
+                          .get)]
+      (configure-google-user database [_ google-user]))
+    (clear-google-user database)))

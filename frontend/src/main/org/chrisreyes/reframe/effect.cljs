@@ -44,16 +44,17 @@
   (.log js/console "google failed to initialize auth2")
   (.error js/console error))
 
-(defn user-failed-to-sign-in!
-  [_]
-  (.error js/console "user failed to sign in"))
-
 (defn render-signin-button!
   [_]
   (.log js/console "Rendering the signin button")
   (-> js/gapi
       .-signin2
       (.render oauth/login-container-id
-               #js{:theme "dark"
-                   :onsuccess #(re-frame.core/dispatch [:user-signed-in %])
-                   :onfailure #(re-frame.core/dispatch [:user-failed-to-sign-in])})))
+               #js{:theme "dark"})))
+
+(defn add-signin-listeners!
+  [google-auth]
+  (.log js/console "Adding sign-in and sign-out listener")
+  (-> google-auth
+      .-isSignedIn
+      (.listen #(re-frame.core/dispatch [:user-toggles-sign-in %]))))

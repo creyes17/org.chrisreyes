@@ -28,28 +28,27 @@
 
 (defn register-events
   []
+  (re-frame.core/reg-event-fx
+    :app-loaded-page
+    event/app-loaded-page)
   (re-frame.core/reg-event-db
     :app-prepares-page
     event/initialize-database)
   (re-frame.core/reg-event-fx
-    :app-loaded-page
-    event/app-loaded-page)
-  (re-frame.core/reg-event-fx
-    :google-loaded-auth2
-    event/google-loaded-auth2)
+    :google-failed-to-initialize-auth2
+    event/google-initialized-auth2)
   (re-frame.core/reg-event-fx
     :google-initialized-auth2
     event/google-initialized-auth2)
   (re-frame.core/reg-event-fx
-    :google-failed-to-initialize-auth2
-    event/google-initialized-auth2)
+    :google-loaded-auth2
+    event/google-loaded-auth2)
   (re-frame.core/reg-event-db
     :user-signed-in
     event/configure-google-user)
-  (re-frame.core/reg-event-fx
-    :user-failed-to-sign-in
-    event/user-failed-to-sign-in)
-  )
+  (re-frame.core/reg-event-db
+    :user-toggles-sign-in
+    event/user-toggles-sign-in))
 
 (defn register-effects
   []
@@ -60,9 +59,9 @@
   (re-frame.core/reg-fx
     :render-signin-button! effect/render-signin-button!)
   (re-frame.core/reg-fx
-    :google-failed-to-initialize-auth2! effect/google-failed-to-initialize-auth2!)
+    :add-signin-listeners! effect/add-signin-listeners!)
   (re-frame.core/reg-fx
-    :user-failed-to-sign-in! effect/user-failed-to-sign-in!))
+    :google-failed-to-initialize-auth2! effect/google-failed-to-initialize-auth2!))
 
 (defn register-queries
   "TODO: Register queries AKA subscriptions"
