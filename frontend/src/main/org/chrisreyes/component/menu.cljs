@@ -97,6 +97,28 @@
          :margin "auto"
          :width "75%"}))))
 
+(def login-button
+  (theme/styled
+    "div"
+    ; Want to make a drop-down icon with the user's Gravatar when logged in
+    ; When user clicks drop-down, they should be given an option to sign out
+    ; If user is logged out, they should see a "Sign in" link that appears clickable
+    ; When the user clicks it, they should see a drop-down with the button to sign in using Google
+    (fn [clj-props current-theme]
+      (clj->js
+        ; XXX Colors are temporary for now
+        {:backgroundColor (-> current-theme
+                              :color
+                              :background
+                              :contrast)
+         :color (-> current-theme
+                    :color
+                    :primary
+                    :contrast)
+         :margin-left (-> current-theme
+                          :margin
+                          :small)}))))
+
 (defn Menu
   "The Site navigation menu. Takes a function 'make-classname'
   that takes two arguments [clj-props current-theme] which will
@@ -109,4 +131,5 @@
        [nav-link {:to "/" :exact true} "About"]
        [nav-link {:to "/support"} "Support"]
        [nav-link {:to "/contact"} "Contact"]
-       [oauth/google-signin-button]]]))
+       [login-button "Sign in"]]]))
+       ;[oauth/google-signin-button]]]))

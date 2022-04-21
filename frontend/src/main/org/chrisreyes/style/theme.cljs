@@ -39,7 +39,10 @@
    :font {:size {:header "xx-large"
                  :subtitle "x-large"
                  :normal "large"
-                 :tiny "small"}}})
+                 :tiny "small"}}
+   :distance {:small "3px"
+              :medium "5px"
+              :large "8px"}})
 
 (def screen-size
   {:tiny "@media screen and (min-width: 1px)"
