@@ -14,6 +14,9 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+; TODO: Checkout "auth0" for integrating with multiple oauth providers
+
 (ns org.chrisreyes.component.oauth)
 
 (goog-define google-client-id "set_in_shadow-cljs.edn")
